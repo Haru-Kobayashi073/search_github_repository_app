@@ -1,5 +1,5 @@
 このアプリは、GitHubのリポジトリを検索することができるアプリです。
-こちらの要件に則って開発しています。
+[こちら](https://github.com/yumemi-inc/flutter-engineer-codecheck)の要件に則って開発しています。
 
 ## セットアップ
 
