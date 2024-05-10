@@ -27,19 +27,40 @@ class SearchRepositoryPage extends HookConsumerWidget {
         SearchRepositoryLoading() => const Center(
             child: CircularProgressIndicator(),
           ),
-        SearchRepositoryLoaded(items: final items) => CustomScrollView(
-            slivers: [
-              SliverList.builder(
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  final item = items[index];
-                  return ListTile(
-                    title: Text(item.fullName),
-                    subtitle: Text(item.description ?? ''),
-                  );
-                },
+        SearchRepositoryLoaded(items: final items) => NotificationListener(
+            onNotification: (ScrollEndNotification n) {
+              if (n.metrics.extentAfter == 0) {
+                ref.read(searchRepositoryViewModelProvider.notifier).loadMore();
+              }
+              return true;
+            },
+            child: Scrollbar(
+              child: CustomScrollView(
+                slivers: [
+                  SliverList.builder(
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      final item = items[index];
+                      return ListTile(
+                        title: Text(item.fullName),
+                        subtitle: Text(item.description ?? ''),
+                      );
+                    },
+                  ),
+                  SliverToBoxAdapter(
+                    child: state.isLoadingMore
+                        ? const SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          )
+                        : const SizedBox(),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         SearchRepositoryError(error: final error) => Center(
             child: Text(error),
