@@ -21,9 +21,11 @@ class GitHubRepositoryImpl implements GithubRepository {
   @override
   Future<List<RepositoryItem>> fetchRepositories({
     required String query,
+    int? page,
   }) async {
     final response = await _client.fetchSearchRepositories(
       accept: 'application/vnd.github+json',
+      page: page,
       query: query,
     );
     return response.items;
