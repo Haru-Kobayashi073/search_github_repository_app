@@ -13,9 +13,17 @@ class SearchRepositoryLoading extends SearchRepositoryViewModelState {
 }
 
 class SearchRepositoryLoaded extends SearchRepositoryViewModelState {
-  const SearchRepositoryLoaded(this.items);
+  const SearchRepositoryLoaded({
+    required this.query,
+    required this.items,
+    this.nextPageIndex = 2,
+    this.isLoadingMore = false,
+  });
 
+  final String query;
   final List<RepositoryItem> items;
+  final int nextPageIndex;
+  final bool isLoadingMore;
 }
 
 class SearchRepositoryError extends SearchRepositoryViewModelState {
@@ -41,7 +49,10 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
         .read(gitHubRepositoryImplProvider)
         .fetchRepositories(query: query);
 
-    state = SearchRepositoryLoaded(results);
+    state = SearchRepositoryLoaded(
+      query: query,
+      items: results,
+    );
   }
 
   void clear() {
@@ -50,5 +61,35 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
 
   void error(String message) {
     state = SearchRepositoryError(message);
+  }
+
+  Future<void> loadMore() async {
+    if (state is! SearchRepositoryLoaded ||
+        (state as SearchRepositoryLoaded).isLoadingMore) {
+      return Future.value();
+    }
+
+    final previousState = state as SearchRepositoryLoaded;
+
+    state = SearchRepositoryLoaded(
+      query: previousState.query,
+      items: previousState.items,
+      nextPageIndex: previousState.nextPageIndex,
+      isLoadingMore: true,
+    );
+
+    final moreResults =
+        await ref.read(gitHubRepositoryImplProvider).fetchRepositories(
+              query: previousState.query,
+              page: previousState.nextPageIndex,
+            );
+
+    if (moreResults.isNotEmpty) {
+      state = SearchRepositoryLoaded(
+        query: previousState.query,
+        items: [...previousState.items, ...moreResults],
+        nextPageIndex: previousState.nextPageIndex + 1,
+      );
+    }
   }
 }
