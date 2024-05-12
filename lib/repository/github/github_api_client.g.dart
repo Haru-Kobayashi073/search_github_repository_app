@@ -19,7 +19,7 @@ class _GitHubApiClient implements GitHubApiClient {
   String? baseUrl;
 
   @override
-  Future<SearchRepositoryResponse> fetchSearchRepositories({
+  Future<SearchRepositoryResponse> searchRepositories({
     String? accept,
     required String query,
     String? sort,
