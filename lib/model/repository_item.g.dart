@@ -17,6 +17,7 @@ RepositoryItem _$RepositoryItemFromJson(Map<String, dynamic> json) =>
       language: json['language'] as String?,
       forksCount: (json['forks_count'] as num).toInt(),
       openIssuesCount: (json['open_issues_count'] as num).toInt(),
+      owner: RepositoryOwner.fromJson(json['owner'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RepositoryItemToJson(RepositoryItem instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$RepositoryItemToJson(RepositoryItem instance) =>
       'language': instance.language,
       'forks_count': instance.forksCount,
       'open_issues_count': instance.openIssuesCount,
+      'owner': instance.owner,
     };

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:search_github_repository_app/model/repository_owner.dart';
 
 part 'repository_item.g.dart';
 
@@ -14,6 +15,7 @@ class RepositoryItem {
     required this.language,
     required this.forksCount,
     required this.openIssuesCount,
+    required this.owner,
   });
 
   factory RepositoryItem.fromJson(Map<String, dynamic> json) =>
@@ -28,4 +30,5 @@ class RepositoryItem {
   final String? language;
   final int forksCount;
   final int openIssuesCount;
+  final RepositoryOwner owner;
 }
