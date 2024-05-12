@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:search_github_repository_app/model/repository_item.dart';
+import 'package:search_github_repository_app/model/search_repository_response.dart';
 import 'package:search_github_repository_app/repository/github/github_api_client.dart';
 import 'package:search_github_repository_app/repository/github/github_repository.dart';
 
@@ -19,15 +19,15 @@ class GitHubRepositoryImpl implements GithubRepository {
   final GitHubApiClient _client;
 
   @override
-  Future<List<RepositoryItem>> fetchRepositories({
+  Future<SearchRepositoryResponse> searchRepositories({
     required String query,
     int? page,
   }) async {
-    final response = await _client.fetchSearchRepositories(
+    final response = await _client.searchRepositories(
       accept: 'application/vnd.github+json',
       page: page,
       query: query,
     );
-    return response.items;
+    return response;
   }
 }

@@ -19,7 +19,7 @@ abstract class GitHubApiClient {
   factory GitHubApiClient(Dio dio, {String? baseUrl}) = _GitHubApiClient;
 
   @GET('/search/repositories')
-  Future<SearchRepositoryResponse> fetchSearchRepositories({
+  Future<SearchRepositoryResponse> searchRepositories({
     @Header('accept') String? accept,
     @Query('q') required String query,
     @Query('sort') String? sort,
