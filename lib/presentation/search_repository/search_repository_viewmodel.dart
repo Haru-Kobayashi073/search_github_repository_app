@@ -99,9 +99,9 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
     }
   }
 
-  String _addCommaToNum(int num){
-  final formatter = NumberFormat('#,###');
-  final numWithComma = formatter.format(num);
-  return numWithComma;
-}
+  String _addCommaToNum(int num) {
+    final formatter = NumberFormat('#,###');
+    final numWithComma = formatter.format(num);
+    return numWithComma;
+  }
 }
