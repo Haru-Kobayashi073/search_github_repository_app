@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:search_github_repository_app/model/repository_item.dart';
 import 'package:search_github_repository_app/repository/github/github_repository_impl.dart';
@@ -15,12 +16,14 @@ class SearchRepositoryLoading extends SearchRepositoryViewModelState {
 class SearchRepositoryLoaded extends SearchRepositoryViewModelState {
   const SearchRepositoryLoaded({
     required this.query,
+    required this.totalResultCount,
     required this.items,
     this.nextPageIndex = 2,
     this.isLoadingMore = false,
   });
 
   final String query;
+  final String totalResultCount;
   final List<RepositoryItem> items;
   final int nextPageIndex;
   final bool isLoadingMore;
@@ -47,11 +50,12 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
     state = const SearchRepositoryLoading();
     final results = await ref
         .read(gitHubRepositoryImplProvider)
-        .fetchRepositories(query: query);
+        .searchRepositories(query: query);
 
     state = SearchRepositoryLoaded(
       query: query,
-      items: results,
+      items: results.items,
+      totalResultCount: _addCommaToNum(results.totalCount),
     );
   }
 
@@ -76,20 +80,28 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
       items: previousState.items,
       nextPageIndex: previousState.nextPageIndex,
       isLoadingMore: true,
+      totalResultCount: previousState.totalResultCount,
     );
 
     final moreResults =
-        await ref.read(gitHubRepositoryImplProvider).fetchRepositories(
+        await ref.read(gitHubRepositoryImplProvider).searchRepositories(
               query: previousState.query,
               page: previousState.nextPageIndex,
             );
 
-    if (moreResults.isNotEmpty) {
+    if (moreResults.items.isNotEmpty) {
       state = SearchRepositoryLoaded(
         query: previousState.query,
-        items: [...previousState.items, ...moreResults],
+        items: [...previousState.items, ...moreResults.items],
         nextPageIndex: previousState.nextPageIndex + 1,
+        totalResultCount: previousState.totalResultCount,
       );
     }
   }
+
+  String _addCommaToNum(int num){
+  final formatter = NumberFormat('#,###');
+  final numWithComma = formatter.format(num);
+  return numWithComma;
+}
 }
