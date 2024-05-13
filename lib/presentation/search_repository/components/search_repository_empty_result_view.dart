@@ -15,7 +15,7 @@ class SearchRepositoryEmptyResultView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                Assets.images.undrawNotFoundReBh2e,
+                Assets.images.notFound,
                 width: MediaQuery.of(context).size.width * 0.7,
               ),
               const SizedBox(height: 16),

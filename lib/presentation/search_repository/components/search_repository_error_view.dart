@@ -17,7 +17,7 @@ class SearchRepositoryErrorView extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                Assets.images.undrawAccessDeniedReAwnf,
+                Assets.images.accessDenied,
                 width: MediaQuery.of(context).size.width * 0.7,
               ),
               const SizedBox(height: 16),
