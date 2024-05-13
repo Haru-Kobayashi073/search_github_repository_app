@@ -6,10 +6,12 @@ part 'repository_owner.g.dart';
 class RepositoryOwner {
   const RepositoryOwner({
     required this.avatarUrl,
+    required this.login,
   });
 
   factory RepositoryOwner.fromJson(Map<String, dynamic> json) =>
       _$RepositoryOwnerFromJson(json);
 
   final String avatarUrl;
+  final String login;
 }
