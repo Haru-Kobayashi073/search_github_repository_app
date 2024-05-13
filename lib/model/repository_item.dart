@@ -7,6 +7,7 @@ part 'repository_item.g.dart';
 class RepositoryItem {
   const RepositoryItem({
     required this.id,
+    required this.name,
     required this.fullName,
     required this.description,
     required this.htmlUrl,
@@ -22,6 +23,7 @@ class RepositoryItem {
       _$RepositoryItemFromJson(json);
 
   final int id;
+  final String name;
   final String fullName;
   final String? description;
   final String htmlUrl;
