@@ -39,32 +39,36 @@ class SearchRepositoryEmptyList extends SearchRepositoryViewModelState {
   const SearchRepositoryEmptyList();
 }
 
+class SearchRepositoryFirstLaunch extends SearchRepositoryViewModelState {
+  const SearchRepositoryFirstLaunch();
+}
+
 @Riverpod(keepAlive: true)
 class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
   @override
   SearchRepositoryViewModelState build() {
-    return const SearchRepositoryEmptyList();
+    return const SearchRepositoryFirstLaunch();
   }
 
   Future<void> search({required String query}) async {
     state = const SearchRepositoryLoading();
-    final results = await ref
-        .read(gitHubRepositoryImplProvider)
-        .searchRepositories(query: query);
+    try {
+      final results = await ref
+          .read(gitHubRepositoryImplProvider)
+          .searchRepositories(query: query);
 
-    state = SearchRepositoryLoaded(
-      query: query,
-      items: results.items,
-      totalResultCount: _addCommaToNum(results.totalCount),
-    );
+      state = SearchRepositoryLoaded(
+        query: query,
+        items: results.items,
+        totalResultCount: _addCommaToNum(results.totalCount),
+      );
+    } on Exception catch (e) {
+      state = SearchRepositoryError(e.toString());
+    }
   }
 
   void clear() {
     state = const SearchRepositoryEmptyList();
-  }
-
-  void error(String message) {
-    state = SearchRepositoryError(message);
   }
 
   Future<void> loadMore() async {
@@ -83,19 +87,23 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
       totalResultCount: previousState.totalResultCount,
     );
 
-    final moreResults =
-        await ref.read(gitHubRepositoryImplProvider).searchRepositories(
-              query: previousState.query,
-              page: previousState.nextPageIndex,
-            );
+    try {
+      final moreResults =
+          await ref.read(gitHubRepositoryImplProvider).searchRepositories(
+                query: previousState.query,
+                page: previousState.nextPageIndex,
+              );
 
-    if (moreResults.items.isNotEmpty) {
-      state = SearchRepositoryLoaded(
-        query: previousState.query,
-        items: [...previousState.items, ...moreResults.items],
-        nextPageIndex: previousState.nextPageIndex + 1,
-        totalResultCount: previousState.totalResultCount,
-      );
+      if (moreResults.items.isNotEmpty) {
+        state = SearchRepositoryLoaded(
+          query: previousState.query,
+          items: [...previousState.items, ...moreResults.items],
+          nextPageIndex: previousState.nextPageIndex + 1,
+          totalResultCount: previousState.totalResultCount,
+        );
+      }
+    } on Exception catch (e) {
+      state = SearchRepositoryError(e.toString());
     }
   }
 
