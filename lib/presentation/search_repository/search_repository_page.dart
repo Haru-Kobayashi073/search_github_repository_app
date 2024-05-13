@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:search_github_repository_app/presentation/components/app_drawer.dart';
 import 'package:search_github_repository_app/presentation/components/loading.dart';
 import 'package:search_github_repository_app/presentation/components/text_field_app_bar.dart';
 import 'package:search_github_repository_app/presentation/search_repository/components/search_repository_empty_result_view.dart';
@@ -17,7 +18,7 @@ class SearchRepositoryPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: const TextFieldAppBar(),
-      drawer: const Drawer(),
+      drawer: const AppDrawer(),
       body: switch (state) {
         SearchRepositoryFirstLaunch() =>
           const SearchRepositoryFirstLaunchView(),
