@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:search_github_repository_app/presentation/search_repository/search_repository_page.dart';
+import 'package:search_github_repository_app/presentation/app.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(
     const ProviderScope(
-      child: MainApp(),
+      child: App(),
     ),
   );
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: SearchRepositoryPage(),
-    );
-  }
 }
