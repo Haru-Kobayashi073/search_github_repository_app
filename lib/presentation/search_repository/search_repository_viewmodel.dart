@@ -35,8 +35,8 @@ class SearchRepositoryError extends SearchRepositoryViewModelState {
   final String error;
 }
 
-class SearchRepositoryEmptyList extends SearchRepositoryViewModelState {
-  const SearchRepositoryEmptyList();
+class SearchRepositoryEmptyReuslt extends SearchRepositoryViewModelState {
+  const SearchRepositoryEmptyReuslt();
 }
 
 class SearchRepositoryFirstLaunch extends SearchRepositoryViewModelState {
@@ -57,6 +57,11 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
           .read(gitHubRepositoryImplProvider)
           .searchRepositories(query: query);
 
+      if (results.items.isEmpty) {
+        state = const SearchRepositoryEmptyReuslt();
+        return;
+      }
+
       state = SearchRepositoryLoaded(
         query: query,
         items: results.items,
@@ -68,7 +73,7 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
   }
 
   void clear() {
-    state = const SearchRepositoryEmptyList();
+    state = const SearchRepositoryEmptyReuslt();
   }
 
   Future<void> loadMore() async {
