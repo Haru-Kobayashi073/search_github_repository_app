@@ -32,7 +32,15 @@ class SearchRepositoryLoadedView extends ConsumerWidget {
               itemCount: items.length,
               itemBuilder: (_, index) {
                 final item = items[index];
-                return RepositoryListTile(item: item);
+                final languageColor = state.languageColors[item.language];
+                return RepositoryListTile(
+                  item: item,
+                  languageColor: languageColor != null
+                      ? Color(
+                          int.parse(languageColor.replaceAll('#', '0xff')),
+                        )
+                      : null,
+                );
               },
             ),
             SliverToBoxAdapter(

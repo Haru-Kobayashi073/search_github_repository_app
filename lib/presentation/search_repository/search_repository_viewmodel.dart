@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:search_github_repository_app/model/repository_item.dart';
 import 'package:search_github_repository_app/repository/github/github_repository_impl.dart';
+import 'package:search_github_repository_app/repository/language_colors/language_colors_repository_impl.dart';
 
 part 'search_repository_viewmodel.g.dart';
 
@@ -18,6 +19,7 @@ class SearchRepositoryLoaded extends SearchRepositoryViewModelState {
     required this.query,
     required this.totalResultCount,
     required this.items,
+    required this.languageColors,
     this.nextPageIndex = 2,
     this.isLoadingMore = false,
   });
@@ -25,6 +27,7 @@ class SearchRepositoryLoaded extends SearchRepositoryViewModelState {
   final String query;
   final String totalResultCount;
   final List<RepositoryItem> items;
+  final Map<String, String> languageColors;
   final int nextPageIndex;
   final bool isLoadingMore;
 }
@@ -61,10 +64,14 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
         state = const SearchRepositoryEmptyReuslt();
         return;
       }
+      final languageColors = await ref
+          .read(languageColorsRepositoryImplProvider)
+          .getLanguageColors();
 
       state = SearchRepositoryLoaded(
         query: query,
         items: results.items,
+        languageColors: languageColors,
         totalResultCount: _addCommaToNum(results.totalCount),
       );
     } on Exception catch (e) {
@@ -87,6 +94,7 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
     state = SearchRepositoryLoaded(
       query: previousState.query,
       items: previousState.items,
+      languageColors: previousState.languageColors,
       nextPageIndex: previousState.nextPageIndex,
       isLoadingMore: true,
       totalResultCount: previousState.totalResultCount,
@@ -103,6 +111,7 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
         state = SearchRepositoryLoaded(
           query: previousState.query,
           items: [...previousState.items, ...moreResults.items],
+          languageColors: previousState.languageColors,
           nextPageIndex: previousState.nextPageIndex + 1,
           totalResultCount: previousState.totalResultCount,
         );

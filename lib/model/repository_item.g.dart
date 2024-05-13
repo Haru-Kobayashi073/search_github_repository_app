@@ -9,6 +9,7 @@ part of 'repository_item.dart';
 RepositoryItem _$RepositoryItemFromJson(Map<String, dynamic> json) =>
     RepositoryItem(
       id: (json['id'] as num).toInt(),
+      name: json['name'] as String,
       fullName: json['full_name'] as String,
       description: json['description'] as String?,
       htmlUrl: json['html_url'] as String,
@@ -23,6 +24,7 @@ RepositoryItem _$RepositoryItemFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$RepositoryItemToJson(RepositoryItem instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'name': instance.name,
       'full_name': instance.fullName,
       'description': instance.description,
       'html_url': instance.htmlUrl,
