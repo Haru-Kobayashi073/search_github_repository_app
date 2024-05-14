@@ -37,5 +37,8 @@ jobs:
       - name: Formatter
         run: dart format $(find lib -name "*.dart" -not \( -name "*.*freezed.dart" -o -name "*.*g.dart" \) ) --set-exit-if-changed
 
-      - name: Run tests
+      - name: Run Unit tests
         run: flutter test
+
+      - name: Run integration tests
+        run: flutter test integration_test
