@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:search_github_repository_app/i18n/strings.g.dart';
 import 'package:search_github_repository_app/utils/gen/assets.gen.dart';
 
 class SearchRepositoryEmptyResultView extends StatelessWidget {
@@ -7,6 +8,8 @@ class SearchRepositoryEmptyResultView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
+
     return Center(
       child: SingleChildScrollView(
         child: SizedBox(
@@ -19,9 +22,9 @@ class SearchRepositoryEmptyResultView extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.7,
               ),
               const SizedBox(height: 16),
-              const Text(
-                '検索結果が見つかりませんでした',
-                style: TextStyle(fontSize: 18),
+              Text(
+                t.searchRepository.empty,
+                style: const TextStyle(fontSize: 18),
               ),
             ],
           ),
