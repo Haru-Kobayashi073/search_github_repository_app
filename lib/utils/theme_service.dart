@@ -10,21 +10,8 @@ class ThemeService extends _$ThemeService {
     return ThemeMode.system;
   }
 
-  void toggle(ThemeInformation theme) {
-    state = theme.themeMode;
+  // ignore: use_setters_to_change_properties
+  void toggle(ThemeMode theme) {
+    state = theme;
   }
-}
-
-enum ThemeInformation {
-  system(title: 'システム', themeMode: ThemeMode.system),
-  light(title: 'ライト', themeMode: ThemeMode.light),
-  dark(title: 'ダーク', themeMode: ThemeMode.dark);
-
-  const ThemeInformation({
-    required this.title,
-    required this.themeMode,
-  });
-
-  final String title;
-  final ThemeMode themeMode;
 }
