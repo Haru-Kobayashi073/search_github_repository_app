@@ -28,6 +28,7 @@ class TextFieldAppBar extends HookConsumerWidget
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: TextFormField(
+            textInputAction: TextInputAction.search,
             autofocus: true,
             autovalidateMode: validateMode.value,
             validator: (value) {
