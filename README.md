@@ -1,5 +1,22 @@
 ## セットアップ
 
+開発者の環境(参考)
+```
+flutter doctor
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel stable, 3.19.6, on macOS 14.2 23C64 darwin-arm64, locale ja-JP)
+[✓] Android toolchain - develop for Android devices (Android SDK version 33.0.0)
+[✓] Xcode - develop for iOS and macOS (Xcode 15.3)
+[✓] Chrome - develop for the web
+[✓] Android Studio (version 2023.1)
+[✓] Android Studio (version 2022.3)
+[✓] VS Code (version 1.88.1)
+[✓] Connected device (4 available)
+[✓] Network resources
+
+• No issues found!
+```
+
 ### 1. リポジトリをクローンする
 ```
 git clone https://github.com/Haru-Kobayashi073/search_github_repository_app.git
