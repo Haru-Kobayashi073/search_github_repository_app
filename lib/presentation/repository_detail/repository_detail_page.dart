@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:search_github_repository_app/i18n/strings.g.dart';
 import 'package:search_github_repository_app/model/repository_item.dart';
 import 'package:search_github_repository_app/utils/gen/assets.gen.dart';
 
@@ -16,6 +17,8 @@ class RepositoryDetailPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -54,7 +57,9 @@ class RepositoryDetailPage extends HookConsumerWidget {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   side: BorderSide.none,
                   avatar: const Icon(Icons.star_border_outlined),
-                  label: Text('${item.stargazersCount}スター'),
+                  label: Text(
+                    t.searchRepository.detail.star(star: item.stargazersCount),
+                  ),
                 ),
                 Chip(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -66,13 +71,17 @@ class RepositoryDetailPage extends HookConsumerWidget {
                       BlendMode.srcIn,
                     ),
                   ),
-                  label: Text('${item.forksCount}フォーク'),
+                  label: Text(
+                    t.searchRepository.detail.fork(fork: item.forksCount),
+                  ),
                 ),
                 Chip(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   side: BorderSide.none,
                   avatar: const Icon(Icons.remove_red_eye_outlined),
-                  label: Text('${item.watchersCount}ウォッチ'),
+                  label: Text(
+                    t.searchRepository.detail.watch(watch: item.watchersCount),
+                  ),
                 ),
                 Chip(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -84,7 +93,10 @@ class RepositoryDetailPage extends HookConsumerWidget {
                       BlendMode.srcIn,
                     ),
                   ),
-                  label: Text('${item.openIssuesCount}オープン'),
+                  label: Text(
+                    t.searchRepository.detail
+                        .issue(issue: item.openIssuesCount),
+                  ),
                 ),
                 Chip(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -95,7 +107,9 @@ class RepositoryDetailPage extends HookConsumerWidget {
                           backgroundColor: languageColor,
                         )
                       : null,
-                  label: Text(item.language ?? '言語なし'),
+                  label: Text(
+                    item.language ?? t.searchRepository.detail.languageEmpty,
+                  ),
                 ),
               ],
             ),

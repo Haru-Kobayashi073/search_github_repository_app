@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:search_github_repository_app/i18n/strings.g.dart';
 import 'package:search_github_repository_app/presentation/search_repository/search_repository_viewmodel.dart';
 
 class TextFieldAppBar extends HookConsumerWidget
@@ -15,6 +16,7 @@ class TextFieldAppBar extends HookConsumerWidget
     final queryController = useTextEditingController();
     final validateMode = useState<AutovalidateMode>(AutovalidateMode.disabled);
     final formKey = GlobalKey<FormState>();
+    final t = Translations.of(context);
 
     return AppBar(
       toolbarHeight: 88,
@@ -30,7 +32,7 @@ class TextFieldAppBar extends HookConsumerWidget
             autovalidateMode: validateMode.value,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return '検索ワードを入力してください';
+                return t.appBar.validatorNullCheck;
               }
               return null;
             },
@@ -42,7 +44,7 @@ class TextFieldAppBar extends HookConsumerWidget
                 },
                 icon: const Icon(Icons.menu),
               ),
-              hintText: 'どんなリポジトリをお探しですか？',
+              hintText: t.appBar.hintText,
               fillColor: Theme.of(context).colorScheme.onInverseSurface,
               filled: true,
               enabledBorder: const OutlineInputBorder(

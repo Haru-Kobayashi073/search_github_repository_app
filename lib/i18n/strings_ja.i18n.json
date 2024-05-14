@@ -1,0 +1,33 @@
+{
+    "drawer": {
+        "theme": {
+            "title": "テーマ",
+            "system": "システム",
+            "light": "ライト",
+            "dark": "ダーク"
+        },
+        "language": {
+            "title": "言語",
+            "ja": "日本語",
+            "en": "英語"
+        }
+    },
+    "appBar": {
+        "validatorNullCheck": "検索ワードを入力してください",
+        "hintText": "どんなリポジトリをお探しですか？"
+    },
+    "searchRepository": {
+        "detail": {
+            "star": "$star スター",
+            "fork": "$fork フォーク",
+            "watch": "$watch ウォッチ",
+            "issue": "$issue オープン",
+            "languageEmpty": "言語なし"
+        },
+        "empty": "リポジトリが見つかりませんでした",
+        "error": "エラーが発生しました... \n ネットワークを確認してください",
+        "reload": "再読み込み",
+        "letsSearch": "リポジトリを探索してみよう",
+        "foundCount": "$count 件の検索結果"
+    }
+}

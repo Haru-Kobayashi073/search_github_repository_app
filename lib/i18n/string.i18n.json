@@ -1,0 +1,33 @@
+{
+    "drawer": {
+        "theme": {
+            "title": "theme",
+            "system": "system",
+            "light": "light",
+            "dark": "dark"
+        },
+        "language": {
+            "title": "language",
+            "ja": "Japanese",
+            "en": "English"
+        }
+    },
+    "appBar": {
+        "validatorNullCheck": "Please enter search words",
+        "hintText": "What repository are you looking for?"
+    },
+    "searchRepository": {
+        "detail": {
+            "star": "$star start",
+            "fork": "$fork fork",
+            "watch": "$watch watch",
+            "issue": "$issue open issue",
+            "languageEmpty": "No language"
+        },
+        "empty": "Repository could not be found",
+        "error": "An error has occurred...  \n Please check your network",
+        "reload": "reload",
+        "letsSearch": "Let's explore the repository!",
+        "foundCount": "$count search results"
+    }
+}
