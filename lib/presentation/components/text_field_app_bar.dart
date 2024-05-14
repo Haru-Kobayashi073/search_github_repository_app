@@ -45,6 +45,13 @@ class TextFieldAppBar extends HookConsumerWidget
                 },
                 icon: const Icon(Icons.menu),
               ),
+              suffixIcon: IconButton(
+                onPressed: () {
+                  queryController.clear();
+                  ref.read(searchRepositoryViewModelProvider.notifier).clear();
+                },
+                icon: const Icon(Icons.clear),
+              ),
               hintText: t.appBar.hintText,
               fillColor: Theme.of(context).colorScheme.onInverseSurface,
               filled: true,

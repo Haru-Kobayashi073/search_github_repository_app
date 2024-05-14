@@ -80,7 +80,7 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
   }
 
   void clear() {
-    state = const SearchRepositoryEmptyReuslt();
+    state = const SearchRepositoryFirstLaunch();
   }
 
   Future<void> loadMore() async {
@@ -121,6 +121,7 @@ class SearchRepositoryViewModel extends _$SearchRepositoryViewModel {
     }
   }
 
+  // 3桁ごとにカンマを追加する
   String _addCommaToNum(int num) {
     final formatter = NumberFormat('#,###');
     final numWithComma = formatter.format(num);
