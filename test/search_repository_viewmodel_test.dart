@@ -49,7 +49,7 @@ void main() {
       await target.search(query: 'dart');
       expect(target.state, isA<SearchRepositoryLoaded>());
       target.clear();
-      expect(target.state, isA<SearchRepositoryEmptyReuslt>());
+      expect(target.state, isA<SearchRepositoryFirstLaunch>());
     },
   );
 }
